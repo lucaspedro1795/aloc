@@ -3,6 +3,9 @@
 session_start();
 
 require_once '../../models/conexao.php';
+
+//verifica a página atual caso seja informada na URL, senão atribui como 1ª página 
+$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1; 
  
 // abre a conexão
 $PDO = db_connect();
@@ -11,8 +14,7 @@ $sql_count = "SELECT COUNT(*) AS total FROM items ORDER BY nome_reg ASC";
 
 $sql_count2 = "SELECT COUNT(*) AS total FROM colaborador ORDER BY nome ASC";
  
-// SQL para selecionar os registros
-$sql = "SELECT cod, nome_reg, categoria, num_serie, setor, userAtual, DATE_FORMAT(horario_alocado, '%d/%m/%Y às %Hh%i' ) AS 'horario_alocado',situacao FROM items; ";
+
  
 // conta o total de registros
 $stmt_count = $PDO->prepare($sql_count);
@@ -23,6 +25,18 @@ $total = $stmt_count->fetchColumn();
 $stmt_count2 = $PDO->prepare($sql_count2);
 $stmt_count2->execute();
 $total2 = $stmt_count2->fetchColumn();
+
+//seta a quantidade de itens por página, neste caso, 2 itens 
+$registros = 4; 
+ 
+//calcula o número de páginas arredondando o resultado para cima 
+$numPaginas = ceil($total/$registros); 
+
+//variavel para calcular o início da visualização com base na página atual 
+$inicio = ($registros*$pagina)-$registros;
+
+// SQL para selecionar os registros
+$sql = "SELECT cod, nome_reg, categoria, num_serie, setor, userAtual, DATE_FORMAT(horario_alocado, '%d/%m/%Y às %Hh%i' ) AS 'horario_alocado',situacao FROM items limit $inicio,$registros; ";
  
 // seleciona os registros
 $stmt = $PDO->prepare($sql);
@@ -46,56 +60,58 @@ $stmt->execute();
 </head>
 
 <body>
-    <div class="container-simple">
+    <div class="container-simple table-responsive">
         <div class="content table-responsive">
-            <div class="card m-3">
-                <h3 class="mt-3"> Total de Colaboradores: <?php echo $total2 ?></h3>
-
-                <?php if ($total2 > 0): ?>
-                    <?php else: ?>
-
-                    <p>Nenhum item registrado</p>
-
-                    <?php endif; ?>
+            <div class="card ms-3 mt-3 me-3">
                 <h3> Total de Items: <?php echo $total ?></h3>
 
                 <?php if ($total > 0): ?>
                     <div class="blockquote">
-                    <button type="button" class="btn btn-secondary w-25 ms-5 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus"></i> Adicionar item</button>
-                    <button type="button" class="btn btn-secondary w-25 ms-5 mt-3"><i class="bi bi-filter-right"></i> Filtrar</button>
+                    <button type="button" class="btn btn-secondary ms-5 mt-0" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus"></i> Adicionar</button>
                     </div>
                     
-            </div>        
-            <table class="table table-bordered border-success">
-                <tbody>
-                    <tr class="table-secondary">
-                        <th>#</th>
-                        <th>Nome do Registro</th>
-                        <th>Categoria</th>
-                        <th>Nº Série</th>
-                        <th>Setor</th>
-                        <th>Usuário Atual</th>
-                        <th>Situação</th>
-                        <th>Data da Alocação</th>
-                        <th>Ações</th>
+            </div>
+            <div class="card ms-3 mb-3 me-3 table-responsive">
+                <table class="table table-bordered border-success">
+                    <tbody>
+                        <tr class="table-secondary">
+                            <th>#</th>
+                            <th>Nome do Registro</th>
+                            <th>Categoria</th>
+                            <th>Nº Série</th>
+                            <th>Setor</th>
+                            <th>Usuário Atual</th>
+                            <th>Situação</th>
+                            <th>Data da Alocação</th>
+                            <th>Ações</th>
+                        </tr>
+                    <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <tr>
+                        <td class="fw-bold"><?php echo $user['cod'] ?></td>
+                        <td><?php echo $user['nome_reg'] ?></td>
+                        <td><?php echo $user['categoria'] ?></td>
+                        <td><?php echo $user['num_serie'] ?></td>
+                        <td><?php echo $user['setor'] ?></td>
+                        <td><?php echo $user['userAtual'] ?></td>
+                        <td><?php echo $user['situacao']?></td>
+                        <td><?php echo $user['horario_alocado'] ?></td>
+                        <td>
+                            <a class="btn" href="../../controller/limp.php?cod=<?php echo $user['cod'] ?>">Limpar situação</a>
+                        </td>
                     </tr>
-                <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                <tr>
-                    <td class="fw-bold"><?php echo $user['cod'] ?></td>
-                    <td><?php echo $user['nome_reg'] ?></td>
-                    <td><?php echo $user['categoria'] ?></td>
-                    <td><?php echo $user['num_serie'] ?></td>
-                    <td><?php echo $user['setor'] ?></td>
-                    <td><?php echo $user['userAtual'] ?></td>
-                    <td><?php echo $user['situacao']?></td>
-                    <td><?php echo $user['horario_alocado'] ?></td>
-                    <td>
-                        <a class="btn" href="../../controller/limp.php?cod=<?php echo $user['cod'] ?>">Limpar situação</a>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-                </tbody>
-            </table>
+                    <?php endwhile; ?>
+                    </tbody>
+                </table>
+                <div class="paginacao" style="margin-top: -13px;">
+                <?php
+                //exibe a paginação 
+                    for($i = 1; $i < $numPaginas + 1; $i++) { 
+                        echo "<a class='active' href='inventario.php?pagina=$i'>".$i."</a> ";
+                    } 
+                ?>
+                </div>
+            </div>        
+            
             <?php else: ?>
  
                 <p>Nenhum usuário registrado</p>
