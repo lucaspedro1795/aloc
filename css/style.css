@@ -262,3 +262,15 @@ p {
 .white {
     color: var(--c2) !important;
 }
+
+.paginacao {
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.paginacao a {
+    text-decoration: none;
+    margin: 5px;
+}

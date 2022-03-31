@@ -3,17 +3,39 @@
 session_start();
 
 require_once '../models/conexao.php';
- 
+
+//verifica a página atual caso seja informada na URL, senão atribui como 1ª página 
+$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1; 
+
 // abre a conexão
 $PDO = db_connect();
  
-// SQL para selecionar os registros
-$sql = "SELECT * FROM items WHERE dispAloc = 'S' AND situacao = '' ";
+$sql_count = "SELECT COUNT(*) AS total FROM items ORDER BY nome_reg ASC";
 
+
+// conta o total de registros
+$stmt_count = $PDO->prepare($sql_count);
+$stmt_count->execute();
+$total = $stmt_count->fetchColumn();
+
+//seta a quantidade de itens por página, neste caso, 2 itens 
+$registros = 6; 
+ 
+//calcula o número de páginas arredondando o resultado para cima 
+$numPaginas = ceil($total/$registros); 
+
+//variavel para calcular o início da visualização com base na página atual 
+$inicio = ($registros*$pagina)-$registros; 
+
+// SQL para selecionar os registros
+$sql = "SELECT * FROM items WHERE dispAloc = 'S' AND situacao = '' limit $inicio,$registros";
  
 // seleciona os registros
 $stmt = $PDO->prepare($sql);
 $stmt->execute();
+ 
+
+
 
 ?>
 <!DOCTYPE html>
@@ -35,29 +57,39 @@ $stmt->execute();
 <body>
     <div class="container-simple">
         <div class="content table-responsive">
-        
-            <table class="table table-bordered border-success" border="1">
-                <tbody>
-                    <tr class="table-secondary">
-                        <th scope="col">#</th>
-                        <th scope="col">Nome do Registro</th>
-                        <th scope="col">Ações</th>
+            <div class="card m-5">
+                <table class="table table-bordered border-success">
+                    <tbody>
+                        <tr class="table-secondary">
+                            <th scope="col">#</th>
+                            <th scope="col">Nome do Registro</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <tr>
+                        <td class="fw-bold"><?php echo $user['cod'] ?></td>
+                        <td><?php echo $user['nome_reg'] ?></td>
+                        <td>
+                            <a class="btn" href="../controller/aloc.php?cod=<?php echo $user['cod'] ?>">Solicitar</a>
+                        </td>
                     </tr>
-                <?php while ($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                <tr>
-                    <td class="fw-bold"><?php echo $user['cod'] ?></td>
-                    <td><?php echo $user['nome_reg'] ?></td>
-                    <td>
-                        <a class="btn " href="../controller/aloc.php?cod=<?php echo $user['cod'] ?>">Solicitar empréstimo</a>
-                    </td>
-                </tr>
-                <?php endwhile; ?>
-                </tbody>
-            </table>
+                    <?php endwhile; ?>
+                    </tbody>
+                </table>
+                <div class="paginacao">
+                <?php
+                //exibe a paginação 
+                    for($i = 1; $i < $numPaginas + 1; $i++) { 
+                        echo "<a class='active' href='emprestimo.php?pagina=$i'>".$i."</a> ";
+                    } 
+                ?>
+                </div>
+            </div>
         </div>
         <div class="menu">
             <nav class="navbar navbar-expand-lg navbar-light bg-light center">
                     <div class="container-fluid">
+                        <h2 class="logo" href="#">Aloc</h2>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                         </button>
