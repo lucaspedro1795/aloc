@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Palette+Mosaic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+
+:root {
+    --c1: #008B8B;
+    --c2: #ffffff;
+    --c3: #000080;
+    --c4: #191970;
+    --c5: #CECCCC;
+    --c6: #4062BB;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    width: 75% !important;
+}
+
+/* Página Inicial */
+
+.principal {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.principal .img-login {
+    width: 100%;
+    height: 100%;
+}
+
+.form-login {
+    display: flex;
+    width: 400px;
+    height: 100%;
+    background: var(--c2);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 2px 2px 2px 5px var(--c2);
+    position: absolute;
+}
+
+.form-login form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.form-login .logo {
+    color: var(--c3);
+    font-family: 'Palette Mosaic', cursive;
+    font-size: 60px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    margin: 0px 0px 20px 0px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 2.5px solid var(--c4) !important;
+    font-family: 'Nunito', sans-serif;
+    color: var(--c3);
+}
+
+#acess {
+    background-color: var(--c4);
+    border: none;
+    border-radius: 10px;
+    color: var(--c2);
+    font-weight: 700;
+    transition: 0.5s;
+}
+
+.title {
+    width: 250px;
+    font-family: 'Nunito', sans-serif;
+    margin-left: -10px;
+}
+
+#acess:hover {
+    background-color: transparent;
+    color: var(--c3);
+    border: 3px solid var(--c3);
+    transition: 0.5s;
+}
+
+/* Layout Padrão */
+
+#all {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    flex-direction: row;
+}
+
+/* Menu */
+
+#all .menu {
+    position: absolute;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    width: 150px;
+    height: 100%;
+    background-color: var(--c2);
+}
+
+.menu .logo {
+    margin: 10px;
+    color: var(--c3);
+    font-family: 'Palette Mosaic', cursive;
+    font-size: 40px;
+}
+
+.menu ul {
+    width: 100%;
+    margin: 10px;
+}
+
+.menu ul li a {
+    color: var(--c3);
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+}
+
+.menu ul li i{
+    font-size: 18px;
+}
+
+/* Box de Conteúdos */
+
+#all .main {
+    margin-left: 150px;
+    background-color: var(--c6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main .logo {
+    font-family: 'Palette Mosaic', cursive;
+    font-size: 70px;
+    color: var(--c2);
+    opacity: 0.7;
+}
+
+.main .cart {
+    width: 80%;
+    height: max-content;
+    padding: 20px;
+    background-color: var(--c2);
+    border-radius: 7px;
+}
+
+.main .tabelaAll {
+    width: 100%;
+    height: 100%;
+    background: var(--c2);
+}
+
+table {
+    border: none !important;
+}
+
+.tabelaAll tr a {
+    font-size: 25px;
+    font-weight: 900;
+    color: var(--c3);
+    margin: -10px;
+}
+
+.tabelaAll thead {
+    background-color: var(--c5);
+    /* border: 1px solid var(--c3); */
+}
+
+.tabelaAll thead tr th {
+    /* border: 1px solid var(--c3); */
+    padding: 10px;
+    color: #000;
+}
+
+.tabelaAll tbody {
+    background-color: var(--c2);
+    /* border: 1px solid var(--c3); */
+}
+
+.tabelaAll tbody tr td {
+    /* border: 1px solid var(--c3); */
+    padding: 10px;
+    color: #000;
+    border-top: 1px solid var(--c3);
+    border-bottom: 1px solid var(--c3);
+}
+
+
+.pagination {
+    margin-top: 20px;
+}
+
+.page-link {
+    color: #000 !important;
+}
+
+#iconDown{
+    font-size: 15px;
+}
+
+
+  /* Estilo do menu dropdown */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Estilo do conteúdo do menu dropdown */
+  .dropdown-content {
+    display: none;
+    margin-left: -20px !important;
+  }
+  
+  /* Estilo dos links no menu dropdown */
+  .dropdown-content li {
+    color: black;
+    margin: 5px 0px 0px 5px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Exibir o conteúdo do menu dropdown quando o botão é clicado */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+
+.buttons{
+    background-color: var(--c3);
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    color: var(--c2);
+    font-family: 'Nunito', sans-serif;
+    margin-right: 10px;
+}
+
+.buttons:focus{
+    box-shadow: -1px 1px 7px var(--c1);   
+}
+
+.msg-erro{
+    padding: 10px;
+    background-color: rgba(255, 0, 0, 0.274);
+    font-family: 'Nunito', sans-serif;
+    border-radius: 10px;
+    border: 1px solid red;
+    color: #9A275A;
+    font-size: 18px;
+}
+
+.msg-erro a{
+    margin-left: 10px;
+}
+
+.main .cartLeitor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    height: max-content;
+    padding: 20px;
+    background-color: var(--c2);
+    border-radius: 7px;
+}
+
+.qr-container{
+    margin: 5px;
+}
+
+.qr-container #video{
+    width: 300px;
+    height: 300px;
+    padding: 3px;
+    border-radius: 20px;
+    border: 2px dashed var(--c3);
+}
+
+.buttons-active{
+    background-color: #228B22;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    color: var(--c2);
+    font-family: 'Nunito', sans-serif;
+    margin-right: 10px;
+}
+
+.buttons-active:focus{
+    box-shadow: -1px 1px 7px #006400;   
+}
+
+.buttons-stop{
+    background-color: #B22222;
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    color: var(--c2);
+    font-family: 'Nunito', sans-serif;
+    margin-right: 10px;
+}
+
+.buttons-stop:focus{
+    box-shadow: -1px 1px 7px #8B0000;   
+}
+
+.text-success{
+    color: #006400;
+    font-weight: 600;
+}
+
+.text-danger{
+    color: red;
+    font-weight: 600;
+}
+
+.etiqueta{
+    width: 380px;
+    height: 104px;
+    background-color: #C0C0C0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
