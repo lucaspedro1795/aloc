@@ -101,6 +101,13 @@
         $('#cod').val(codigoItemAdm);
     });
 
+    $("#tabela-inventarioadm").on("click", "#btn-etiqueta", function() {
+    var cod_item = $(this).closest('tr').find("td[data-CodAdm]").text();
+    var nomeReg = $(this).closest('tr').find("td[data-nomeReg]").text();
+    console.log(cod_item, nomeReg);
+    location.href = "../views/gerarEtiqueta.php?cod_item=" + cod_item + "&nomeReg=" + nomeReg + ""
+  });
+
     function preencher(res, itens) {
         for (i = pagina * tamanhoPagina; i < res.length && i < (pagina + 1) * tamanhoPagina; i++) {
             itens += "<tr><td data-CodAdm class='fw-bold'>" + res[i].cod_item + "</td>" +
@@ -112,7 +119,7 @@
                 // "<td data-categoria >" + res[i].situacao + "</td>" +
                 // "<td data-categoria >" + res[i].horario_alocado + "</td>" +
                 "<td><a href='#' class='' data-remodal-target='modal-editar-ativo' id='editar'><i class='fa-solid fa-pen-to-square'></i></a></td>" +
-                "<td><a href='#' class='' id='editar'><i class='fa-solid fa-tag'></i></a></td>" +
+                "<td><a href='#' class='' id='btn-etiqueta'><i class='fa-solid fa-tag'></i></a></td>" +
                 "<td><a href='#' class='' data-remodal-target='modal-excluir-ativo' id='excluir'><i class='fa-solid fa-trash-can'></i></a></td>" +
                 "</tr>";
         }

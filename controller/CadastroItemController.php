@@ -43,7 +43,7 @@
         
 
         $.get('../models/CadastrarAtivo.php', arr_ativo, function(response){
-            console.log(response);
+            // console.log(response);
             if(response = 0){
                 var inst = $('[data-remodal-id=erro-ativo-cadastrado]').remodal();
                 inst.open();
