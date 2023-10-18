@@ -94,7 +94,7 @@
     <hr style="width:100% !important;">
     <br>
     <button data-remodal-action="confirm" class="remodal-confirm" id="btnCadastrarUser">Cadastrar</button>
-    
+
 </div>
 
 
@@ -142,13 +142,30 @@
 </div>
 
 
+
 <div class="remodal" data-remodal-id="alerta-qrcode">
     <button data-remodal-action="close" class="remodal-close"></button>
-    <h2 class="text-danger">Alerta</h2>
-    <h5>
-       <div id="resultado"></div>
-    </h5>
-    <br>
+    <div id="qrCodeModal">
+        <h2 class="text-primary">Alocar dispositivo</h2>
+        <hr style="width: 100% !important;">
+        <div class="dadosAtivo">
+            <h3 id="nomeReg">WEBCAM_01</h3>
+            <h4 id="codigoItem">645346</h4>
+            <h5 id="categoria">Categoria: </h5>
+            <h5 id="situacao">Situação: </h5>
+        </div>
+        <br>
+        <div class="divBusca">
+            <label for="buscarUser">Selecionar o usuário:</label>
+            <input type="text" class="buscarUsuarios" name="buscarUser" id="buscarUser" list="options">
+            
+            <datalist id="options">
+                
+            </datalist>
+        </div>
+        <br>
+    </div>
+    <hr style="width: 100% !important;">
     <button data-remodal-action="confirm" class="remodal-confirm">OK</button>
 </div>
 

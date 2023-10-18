@@ -23,7 +23,7 @@
                 <a class="nav-link" href="leitor.php"><i class="fa-solid fa-qrcode"></i> Leitor</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-users-line"></i> Usuários</a>
+                <a class="nav-link" href="usuarios.php"><i class="fa-solid fa-users-line"></i> Usuários</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-square-poll-horizontal"></i> Relatórios</a>
